@@ -38,7 +38,7 @@ const ReplyBox = () => {
             } finally {
                 setLoading(false)
             }
-        }, [session]
+        }, []
     )
 
     useEffect(() => {

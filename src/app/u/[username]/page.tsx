@@ -27,7 +27,7 @@ import {
 import { useRouter } from "next/navigation";
 
 
-const sendMessage = () => {
+const SendMessage = () => {
   const { toast } = useToast()
   const { setTheme } = useTheme()
   const router = useRouter()
@@ -212,4 +212,4 @@ const sendMessage = () => {
   )
 }
 
-export default sendMessage;
+export default SendMessage;

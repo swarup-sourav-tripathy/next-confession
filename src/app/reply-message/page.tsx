@@ -18,6 +18,7 @@ interface Message {
 const ReplyBox = () => {
     const [messages, setMessages] = useState<Message[]>([])
     const [loading, setLoading] = useState(false)
+    const { data: session } = useSession();
     const fetchALlMessage = useCallback(
         async (refresh: boolean = false) => {
             try {
@@ -37,7 +38,7 @@ const ReplyBox = () => {
             } finally {
                 setLoading(false)
             }
-        }, []
+        }, [session]
     )
 
     useEffect(() => {

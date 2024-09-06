@@ -26,7 +26,7 @@ export const authOptions: NextAuthOptions = {
                         // console.log(user);
                         
                         if(!user){
-                            throw new Error('No user found with this email')
+                            throw new Error('No user found with this email/username')
                         }
                         
                         // if (!user.isVerified) {

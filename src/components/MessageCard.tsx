@@ -119,7 +119,7 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
                             <AlertDialogHeader>
                                 <AlertDialogTitle>Are you want to reply?</AlertDialogTitle>
                                 <AlertDialogDescription>
-                                    This reply will stored in "Reply" page where sender can find his/her reply!
+                                    reply to &quot;{message.content}&quot; 
                                 </AlertDialogDescription>
                             </AlertDialogHeader>
                            

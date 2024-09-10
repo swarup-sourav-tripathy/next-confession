@@ -202,7 +202,7 @@ const SendMessage = () => {
 
       <div className="flex flex-col">
       <span className="my-2 ">Get Your Reply Here</span>
-      <Button onClick={() => {router.push('/reply-message')}}> Reply</Button>
+      <Button onClick={() => {router.push(`/reply-message/${params.username}`)}}> Reply</Button>
       </div>
 
       </div>

@@ -5,6 +5,7 @@ import { User } from "next-auth";
 import { MessageReply } from "@/model/User";
 import mongoose from "mongoose";
 import UserModel from "@/model/User";
+import { MessageReplyModel } from "@/model/User";
 
 export async function POST(
   request: Request, {params}:{params:{messageid: string}}
@@ -16,6 +17,9 @@ export async function POST(
   // console.log(session);
   // console.log(user);
 
+  // const userName = user.username
+  // console.log(userName);
+  
 
   if (!session || !user) {
     return Response.json(
@@ -26,43 +30,37 @@ export async function POST(
   try {
     const { reply , userId} = await request.json();
     // console.log(reply);
-    // console.log(userId);
+    console.log(userId);
+
+    const _user = await UserModel.findById(userId);
+    const userName = _user?.username
+    console.log(userName);
+    
     
     const messageId = params.messageid;
-    // console.log(messageId);
+    console.log(messageId);
     
     const targetedMessage = await UserModel.findOne(
       { "message._id": messageId },
       { "message.$": 1 }
     );
 
-    // console.log(targetedMessage);
+    console.log(targetedMessage);
     
     const repliedMessage = targetedMessage?.message[0];
-    // console.log(repliedMessage);
+    console.log(repliedMessage);
     
 
-    const newReply = {
+    const newReply = new MessageReplyModel({
+     username: userName,
       content: repliedMessage?.content,
       reply,
       createdAt: new Date()
-    } as unknown as  MessageReply;
+    }) as unknown as  MessageReply;
 
-    const _user = await UserModel.findById(userId).exec()
-
-    if (!_user) {
-      return Response.json(
-          {
-              success: false,
-              messages: "User not found"
-          },
-          {status: 404}
-      )
-  }
-    _user.messageReply.push(newReply as MessageReply)
-    await _user.save()
-
-    // console.log(_user);
+    const response = await newReply.save()
+    console.log(response);
+        
 
     return Response.json(
       { messages: "Replied successfully", success: true },

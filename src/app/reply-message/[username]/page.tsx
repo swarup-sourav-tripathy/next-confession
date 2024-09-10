@@ -8,6 +8,7 @@ import { ApiResponse } from "@/types/ApiResponse";
 import axios, { AxiosError } from "axios";
 import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
 interface Message {
     content: string;
@@ -19,11 +20,12 @@ const ReplyBox = () => {
     const [messages, setMessages] = useState<Message[]>([])
     const [loading, setLoading] = useState(false)
     const { data: session } = useSession();
+    const params = useParams<{ username: string }>()
     const fetchALlMessage = useCallback(
         async (refresh: boolean = false) => {
             try {
                 setLoading(true)
-                const response = await axios.get<ApiResponse>(`/api/get-reply-message/`);
+                const response = await axios.get<ApiResponse>(`/api/get-reply-message/${params.username}`);
                 const newMessages: any = response.data.message
                 setMessages(newMessages);
             } catch (error) {

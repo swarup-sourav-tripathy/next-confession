@@ -20,12 +20,17 @@ const MessageSchema: Schema<Message> = new Schema({
 
 
 export interface MessageReply extends Document {
+    username: string;
     content: string;
     reply: string;
     createdAt: Date;
   }
   
   const MessageReplySchema: Schema<MessageReply> = new Schema({
+    username:{
+        type: String,
+        required: true
+    },
     content: {
       type: String,
       required: true,
@@ -51,7 +56,7 @@ export interface User extends Document{
     isVerified: boolean;
     isAcceptingMessage: boolean;
     message: Message[];
-    messageReply: MessageReply[]
+    
 }
 
 const UserSchema: Schema<User> = new Schema({
@@ -88,10 +93,13 @@ const UserSchema: Schema<User> = new Schema({
         default: false
     },
     message: [MessageSchema],
-    messageReply: [MessageReplySchema]
+    
 })
 
 const UserModel = (mongoose.models.User as mongoose.Model<User> ) || mongoose.model<User>("User", UserSchema)
+export const MessageReplyModel = (mongoose.models.MessageReply as mongoose.Model<MessageReply> ) || mongoose.model<MessageReply>("MessageReply", MessageReplySchema)
 
 
 export default UserModel;
+
+

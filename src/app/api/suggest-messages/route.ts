@@ -55,11 +55,12 @@ import {
   export async function POST(req: Request) {
     try {
       const prompt =
-        "Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'. These questions are for an anonymous social messaging platform, like Qooh.me, and should be suitable for a diverse audience. Avoid personal or sensitive topics, focusing instead on universal themes that encourage friendly interaction. For example, your output should be structured like this: 'What’s a hobby you’ve recently started?||If you could have dinner with any historical figure, who would it be?||What’s a simple thing that makes you happy?'. Ensure the questions are intriguing, foster curiosity, and contribute to a positive and welcoming conversational environment.";
+        "Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'. These questions are for an anonymous social messaging platform, like Qooh.me, and should be suitable for a diverse audience. Avoid personal or sensitive topics, focusing instead on universal themes that encourage friendly interaction."+
+        "Formulate a question that asks users about their preferences or priorities when it comes to dating and finding a partner. This could relate to personality traits, relationship styles, or ideal dates. For example, your output should be structured like this: 'Are you more drawn to someone who is outgoing and adventurous, or someone who is more introverted and enjoys quiet evenings?||Considering both personality and relationship style, what's the most important factor for you in building a long-term connection?||In terms of communication style, do you prefer someone who is direct and open, or someone who is more subtle and thoughtful?'. Ensure the questions are intriguing, foster curiosity, and contribute to a positive and welcoming conversational environment."
   
       // Ask Google Generative AI for a streaming completion given the prompt
       const response = await genAI
-        .getGenerativeModel({ model: "gemini-pro" })
+        .getGenerativeModel({ model: "gemini-1.5-flash" })
         .generateContentStream({
           contents: [{ role: "user", parts: [{ text: prompt }] }],
         });
